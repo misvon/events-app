@@ -3,7 +3,7 @@ export default ngModule =>{
 	function MyCustomer(){
 		 return {
    		 template: require('./events.html'),
-   		 controller:'EventCtrl'
+   		 controller:'EventCtrl as eventCtrl'
   		};
 	}	
 }

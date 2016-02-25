@@ -1,63 +1,82 @@
-export default ngModule =>{
-	ngModule.controller('EventCtrl', EventCtrl);
-	 function EventCtrl(ApiService,EventService,$scope){
-	 	const vm = this;
-	 	let getCategories = () =>{
-	 		EventService.getCategories().then( result => console.log(result.data))
-	 	}
-	 	  $scope.password = '';
-	  let grade = function() {
-	    var size = $scope.password.length;
-	    if (size > 8) {
-	      $scope.strength = 'strongs';
-	    } else if (size > 3) {
-	      $scope.strength = 'medium';
-	    } else {
-	      $scope.strength = 'weak';
-	    }
-	  };
-	 	//getCategories()
+export default ngModule => {
+    ngModule.controller('EventCtrl', EventCtrl);
 
-	 	let getEvents = () => {
-	 	EventService.getEvents().then(result => console.log(result.data))
-	 	}
+    function EventCtrl(ApiService, EventService, $scope) {
+        const vm = this;
+        vm.employer = 'true';
+        vm.vat = 'true';
+        vm.euTrade = 'true';
+        let getCategories = () => {
+            EventService.getCategories().then(result => console.log(result.data))
+        }
 
-	 	//getEvents()
+        getCategories()
 
-	 	let getCompanyTypes = () =>{
-	 		EventService.getCompanyTypes().then(result => console.log(result.data))
-	 	}
-	 	//getCompanyTypes()
+        let getEvents = () => {
+            EventService.getEvents().then(result => console.log(result.data.length))
+        }
 
-	 	let getForms = () =>{
-	 		EventService.getForms().then(result => console.log(result.data))
-	 	}
-	 	//getForms() 
-	 	let getVatPeriods = () =>{
-	 		EventService.getVatPeriods().then(result => console.log(result.data))
-	 	}
-	 	
-	 	//getVatPeriods();
-	 	
-	 	let getCompanySizes = () =>{
-	 		EventService.getCompanySizes().then(result => console.log(result.data))
-	 	}
-	 	
-	 	//getCompanySizes();
-	 	
-	 	let getEndsOfYear = () =>{
-	 		EventService.getEndsOfYear().then(result => console.log(result.data))
-	 	}
-	 	
-	 	//getEndsOfYear();
-	 	let getEventsByPeriod = (from,to) =>{
-	 		EventService.getEventsByPeriod(from,to).then(result => console.log(result.data))
-	 	}
-	 	
-	 	//getEventsByPeriod('2016-01-01','2016-12-31');
-	 	let getLatestYear = () =>{
-	 		EventService.getLatestYear().then(result => console.log(result.data))
-	 	}
-	 //	getLatestYear();
-	 }
+        getEvents()
+
+        let getCompanyTypes = () => {
+            EventService.getCompanyTypes().then(result => {
+                vm.companyForms = result.data;
+                vm.companyForms.unshift('Alla');
+                vm.companyForm = vm.companyForms[0];
+            });
+        }
+        getCompanyTypes()
+
+        let getForms = () => {
+            EventService.getForms().then(result => {
+                vm.submissionForms = result.data;
+                vm.submissionForms.unshift('Alla');
+                vm.selectedSubmissionForm = vm.submissionForms[0];
+            });
+        }
+
+        getForms()
+
+        let getVatPeriods = () => {
+            EventService.getVatPeriods().then(result => {
+                vm.vatPeriods = result.data;
+                vm.vatPeriods.unshift('Helår');
+                vm.selectedVatPeriod = vm.vatPeriods[0];
+            });
+        }
+
+        getVatPeriods();
+        //
+
+        let getCompanySizes = () => {
+            EventService.getCompanySizes().then(result => {
+                vm.companySizes = result.data;
+                vm.companySizes.unshift('Alla');
+                vm.selectedCompanySizes = vm.companySizes[0];
+
+            });
+        }
+
+        getCompanySizes();
+
+        let getEndsOfYear = () => {
+            EventService.getEndsOfYear().then(result => {
+                vm.endsOfYears = result.data;
+                vm.endsOfYears.unshift('Alla');
+                vm.endsOfYear = vm.endsOfYears[0];
+            });
+        }
+
+        getEndsOfYear();
+
+        let getEventsByPeriod = (from, to) => {
+            EventService.getEventsByPeriod(from, to).then(result => console.log(result.data))
+        }
+
+        getEventsByPeriod('2016-01-01', '2016-12-31');
+        let getCurrentYear = () => {
+            EventService.getCurrentYear().then(result => console.log(result.data))
+        }
+        getCurrentYear();
+    }
 }

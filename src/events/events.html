@@ -1,9 +1,67 @@
-<div class="container">
-<form class="form-horizontal">
- <div class="form-group">
-	<h1>Hello events app</h1>
-	<div></div>
-	</div>
-	</div>
-</form>
+<div class="wrapper">
+    <form class="form-horizontal">
+        <div class="custom-form-grupp">
+            <label for="companyForm" class="col-sm-3">Företagsform</label>
+            <div class="col-sm-9">
+                <select class="custom-form" name="companyForm" id="companyForm" ng-model="eventCtrl.companyForm" ng-options="companyForm for companyForm in eventCtrl.companyForms"></select>
+            </div>
+        </div>
+        <div class="custom-form-grupp">
+            <label for="endsOfYears" class="col-sm-3">Räkenskapsåret slutar i</label>
+            <div class="col-sm-9">
+                <select class="custom-form" name="endsOfYears" id="endsOfYears" ng-model="eventCtrl.endsOfYear" ng-options="endsOfYear for endsOfYear in eventCtrl.endsOfYears"></select>
+            </div>
+        </div>
+        <div class="custom-form-grupp">
+            <label for="submissionForm" class="col-sm-3">Inlämning av deklarationer</label>
+            <div class="col-sm-9">
+                <select class="custom-form" name="submissionForm" id="submissionForm" ng-model="eventCtrl.selectedSubmissionForm" ng-options="submissionForm for submissionForm in eventCtrl.submissionForms"></select>
+            </div>
+        </div>
+        <div class="custom-form-grupp">
+            <label for="companyForm" class="col-sm-3">Arbetsgivare</label>
+            <div class="col-sm-9">
+                <label class="radio-inline">
+                    <input type="radio"  value="true" ng-model="eventCtrl.employer"> Ja
+                </label>
+                <label class="radio-inline">
+                    <input type="radio"  value="false" ng-model="eventCtrl.employer"> Nej
+                </label>
+            </div>
+        </div>
+        <div class="custom-form-grupp">
+            <label for="companyForm" class="col-sm-3">Moms</label>
+            <div class="col-sm-9">
+                <label class="radio-inline">
+                    <input type="radio"  value="true" ng-model="eventCtrl.vat"> Ja
+                </label>
+                <label class="radio-inline">
+                    <input type="radio"  value="false" ng-model="eventCtrl.vat"> Nej
+                </label>
+            </div>
+        </div>
+        <div class="custom-form-grupp">
+            <label for="vatPeriod" class="col-sm-3">Momsredovisningsperiod</label>
+            <div class="col-sm-9">
+                <select class="custom-form" name="vatPeriod" id="vatPeriod" ng-model="eventCtrl.selectedVatPeriod" ng-options=" vatPeriod for vatPeriod in eventCtrl.vatPeriods"></select>
+            </div>
+        </div>
+        <div class="custom-form-grupp">
+            <label for="companySize" class="col-sm-3">Omsättning, miljoner kr:</label>
+            <div class="col-sm-9">
+                <select class="custom-form" name="companySize" id="companySize" ng-model="eventCtrl.selectedCompanySizes" ng-options="companySize for companySize in eventCtrl.companySizes"></select>
+            </div>
+        </div>
+        <div class="custom-form-grupp">
+            <label for="companySize" class="col-sm-3">EU-handel:</label>
+            <div class="col-sm-9">
+                <label class="radio-inline">
+                    <input type="radio"  value="true" ng-model="eventCtrl.euTrade"> Ja
+                </label>
+                <label class="radio-inline">
+                    <input type="radio"  value="false" ng-model="eventCtrl.euTrade"> Nej
+                </label>
+            </div>
+        </div>
+    </form>
 </div>

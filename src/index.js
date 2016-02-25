@@ -9,7 +9,6 @@ const EventApp = angular.module('EventsApp',[]).config(function($httpProvider){
 	$httpProvider.interceptors.push(function($q) {
 	  return {
 	   'request': function(config) {
-	   	console.log(config)
 	       // same as above
 	       return config;
 	    },  
@@ -18,7 +17,6 @@ const EventApp = angular.module('EventsApp',[]).config(function($httpProvider){
 	      return $q.reject(rejection);
 	    },
 	    'response': function(response) {
-	    	console.log(response)
 	       // same as above
 	       return response;
 	    },
