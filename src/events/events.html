@@ -22,10 +22,10 @@
             <label for="companyForm" class="col-sm-3">Arbetsgivare</label>
             <div class="col-sm-9">
                 <label class="radio-inline">
-                    <input type="radio"  value="true" ng-model="eventCtrl.employer"> Ja
+                    <input type="radio" value="true" ng-model="eventCtrl.employer"> Ja
                 </label>
                 <label class="radio-inline">
-                    <input type="radio"  value="false" ng-model="eventCtrl.employer"> Nej
+                    <input type="radio" value="false" ng-model="eventCtrl.employer"> Nej
                 </label>
             </div>
         </div>
@@ -33,10 +33,10 @@
             <label for="companyForm" class="col-sm-3">Moms</label>
             <div class="col-sm-9">
                 <label class="radio-inline">
-                    <input type="radio"  value="true" ng-model="eventCtrl.vat"> Ja
+                    <input type="radio" value="true" ng-model="eventCtrl.vat"> Ja
                 </label>
                 <label class="radio-inline">
-                    <input type="radio"  value="false" ng-model="eventCtrl.vat"> Nej
+                    <input type="radio" value="false" ng-model="eventCtrl.vat"> Nej
                 </label>
             </div>
         </div>
@@ -56,12 +56,34 @@
             <label for="companySize" class="col-sm-3">EU-handel:</label>
             <div class="col-sm-9">
                 <label class="radio-inline">
-                    <input type="radio"  value="true" ng-model="eventCtrl.euTrade"> Ja
+                    <input type="radio" value="true" ng-model="eventCtrl.euTrade"> Ja
                 </label>
                 <label class="radio-inline">
-                    <input type="radio"  value="false" ng-model="eventCtrl.euTrade"> Nej
+                    <input type="radio" value="false" ng-model="eventCtrl.euTrade"> Nej
                 </label>
             </div>
         </div>
     </form>
+</div>
+<!-- <table class="table">
+    <tbody ng-repeat="month in eventCtrl.monthsWithEvents | filter:q">
+        <th class="text-center">{{month.key}}</th>
+        <th></th>
+        <tr ng-repeat="data in month.value">
+            <th>{{data.date | date : 'd'}} {{data.description}}</th>
+        </tr>
+    </tbody>
+</table> -->
+<div class="events" ng-repeat="month in eventCtrl.monthsWithEvents">
+    <div class="event-head">
+      <!--   <label for="" style="float: left;padding: 4px;">Datum</label>
+        <label for="" style="float: left;padding: 4px; margin-left: 20px">Rubrik</label> -->
+        <label for="">{{month.key}}</label>
+    </div>
+    <div class="event-body" ng-repeat="data in month.value">
+        <div class="event-title">
+            <label>{{data.date | date : 'd'}} <span style="margin-left: 50px">{{data.description}}</span></label>
+        </div>
+        <p>{{data.renderedText}}</p>
+    </div>
 </div>

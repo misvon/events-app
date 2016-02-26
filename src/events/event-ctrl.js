@@ -7,13 +7,20 @@ export default ngModule => {
         vm.vat = 'true';
         vm.euTrade = 'true';
         let getCategories = () => {
-            EventService.getCategories().then(result => console.log(result.data))
+            EventService.getCategories().then();
         }
 
         getCategories()
 
+        function getLastDayOfMonth(date) {
+            var month = date.getMonth();
+            var d = new Date(date.getYear(), month + 1, 0);
+            return new Date(d);
+        }
         let getEvents = () => {
-            EventService.getEvents().then(result => console.log(result.data.length))
+            EventService.getEvents().then(result => {
+                vm.events = result.data;
+            });
         }
 
         getEvents()
@@ -46,7 +53,6 @@ export default ngModule => {
         }
 
         getVatPeriods();
-        //
 
         let getCompanySizes = () => {
             EventService.getCompanySizes().then(result => {
@@ -58,10 +64,16 @@ export default ngModule => {
         }
 
         getCompanySizes();
-
+        vm.monthsWithEvents = [];
         let getEndsOfYear = () => {
             EventService.getEndsOfYear().then(result => {
                 vm.endsOfYears = result.data;
+                vm.endsOfYears.forEach(month => {
+                    var obj = {};
+                    obj.key = month;
+                    obj.value = [];
+                    vm.monthsWithEvents.push(obj)
+                });
                 vm.endsOfYears.unshift('Alla');
                 vm.endsOfYear = vm.endsOfYears[0];
             });
@@ -70,12 +82,22 @@ export default ngModule => {
         getEndsOfYear();
 
         let getEventsByPeriod = (from, to) => {
-            EventService.getEventsByPeriod(from, to).then(result => console.log(result.data))
+            EventService.getEventsByPeriod(from, to).then(result => {
+                vm.allEvenets = result.data;
+                vm.allEvenets.forEach(event => {
+                    for (var i = 0; i < vm.monthsWithEvents.length; i++) {
+                        if (new Date(event.date).getMonth() == i) {
+                            vm.monthsWithEvents[i].value.push(event)
+                        }
+                    }
+                })
+                vm.monthsWithEvents.forEach(m => console.log(m))
+            })
         }
 
         getEventsByPeriod('2016-01-01', '2016-12-31');
         let getCurrentYear = () => {
-            EventService.getCurrentYear().then(result => console.log(result.data))
+            EventService.getCurrentYear().then()
         }
         getCurrentYear();
     }
