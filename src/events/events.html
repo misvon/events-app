@@ -3,13 +3,13 @@
         <div class="custom-form-grupp">
             <label for="companyForm" class="col-sm-3">Företagsform</label>
             <div class="col-sm-9">
-                <select class="custom-form" name="companyForm" id="companyForm" ng-model="eventCtrl.companyForm" ng-options="companyForm for companyForm in eventCtrl.companyForms"></select>
+                <select class="custom-form" name="companyForm" ng-change="eventCtrl.filterByCompanyTypes()" id="companyForm" ng-model="eventCtrl.companyForm" ng-options="companyForm for companyForm in eventCtrl.companyForms"></select>
             </div>
         </div>
         <div class="custom-form-grupp">
             <label for="endsOfYears" class="col-sm-3">Räkenskapsåret slutar i</label>
             <div class="col-sm-9">
-                <select class="custom-form" name="endsOfYears" id="endsOfYears" ng-model="eventCtrl.endsOfYear" ng-options="endsOfYear for endsOfYear in eventCtrl.endsOfYears"></select>
+                <select class="custom-form" name="endsOfYears" ng-change="eventCtrl.filterByEndsOfYears()" id="endsOfYears" ng-model="eventCtrl.endsOfYear" ng-options="endsOfYear for endsOfYear in eventCtrl.endsOfYears"></select>
             </div>
         </div>
         <div class="custom-form-grupp">
@@ -65,22 +65,13 @@
         </div>
     </form>
 </div>
-<!-- <table class="table">
-    <tbody ng-repeat="month in eventCtrl.monthsWithEvents | filter:q">
-        <th class="text-center">{{month.key}}</th>
-        <th></th>
-        <tr ng-repeat="data in month.value">
-            <th>{{data.date | date : 'd'}} {{data.description}}</th>
-        </tr>
-    </tbody>
-</table> -->
-<div class="events" ng-repeat="month in eventCtrl.monthsWithEvents">
-    <div class="event-head">
+<div class="wrapper events" ng-repeat="month in eventCtrl.monthsWithEvents track by $index">
+    <div class="event-head" ng-show="month.value.length > 0">
       <!--   <label for="" style="float: left;padding: 4px;">Datum</label>
         <label for="" style="float: left;padding: 4px; margin-left: 20px">Rubrik</label> -->
         <label for="">{{month.key}}</label>
     </div>
-    <div class="event-body" ng-repeat="data in month.value">
+    <div class="event-body" ng-repeat="data in month.value track by $index">
         <div class="event-title">
             <label>{{data.date | date : 'd'}} <span style="margin-left: 50px">{{data.description}}</span></label>
         </div>

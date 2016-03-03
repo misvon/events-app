@@ -6,6 +6,9 @@ export default ngModule => {
         vm.employer = 'true';
         vm.vat = 'true';
         vm.euTrade = 'true';
+        let companyFormChanged = false;
+        let endsOfYearsChanged = false;
+        let selectedSubmissionFormChanged = false;
         let getCategories = () => {
             EventService.getCategories().then();
         }
@@ -91,7 +94,6 @@ export default ngModule => {
                         }
                     }
                 })
-                vm.monthsWithEvents.forEach(m => console.log(m))
             })
         }
 
@@ -100,5 +102,39 @@ export default ngModule => {
             EventService.getCurrentYear().then()
         }
         getCurrentYear();
+
+        vm.filterByCompanyTypes = () => {
+            companyFormChanged = true;
+            vm.monthsWithEvents.forEach(month => {
+                month.value = [];
+            });
+            vm.allEvenets.filter(type => {
+                return type.companyTypes.indexOf(vm.companyForm) > -1;
+            }).forEach(event => {
+                for (var i = 0; i < vm.monthsWithEvents.length; i++) {
+                    if (new Date(event.date).getMonth() == i) {
+                        vm.monthsWithEvents[i].value.push(event)
+                    }
+                }
+            });
+        }
+        vm.filterByEndsOfYears = () => {
+            vm.monthsWithEvents.forEach(month => {
+                month.value = [];
+            });
+            vm.allEvenets.filter(type => {
+                return type.endOfYears.indexOf(vm.endsOfYear) > -1;
+                 if(companyFormChanged){
+                    return type.companyTypes.indexOf(vm.companyForm) > -1 && type.endOfYears.indexOf(vm.endsOfYear) > -1;
+                }
+            }).forEach(event => {
+                for (var i = 0; i < vm.monthsWithEvents.length; i++) {
+                    if (new Date(event.date).getMonth() == i) {
+                        vm.monthsWithEvents[i].value.push(event)
+                    }
+                }
+            });
+
+        }
     }
 }
