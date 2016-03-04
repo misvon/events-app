@@ -15,17 +15,18 @@
         <div class="custom-form-grupp">
             <label for="submissionForm" class="col-sm-3">Inlämning av deklarationer</label>
             <div class="col-sm-9">
-                <select class="custom-form" name="submissionForm" id="submissionForm" ng-model="eventCtrl.selectedSubmissionForm" ng-options="submissionForm for submissionForm in eventCtrl.submissionForms"></select>
+                <select class="custom-form" ng-change="eventCtrl.filterByFormsTypes()" name="submissionForm" id="submissionForm" 
+                ng-model="eventCtrl.selectedSubmissionForm" ng-options="submissionForm for submissionForm in eventCtrl.submissionForms"></select>
             </div>
         </div>
         <div class="custom-form-grupp">
             <label for="companyForm" class="col-sm-3">Arbetsgivare</label>
             <div class="col-sm-9">
                 <label class="radio-inline">
-                    <input type="radio" value="true" ng-model="eventCtrl.employer"> Ja
+                    <input type="radio" value="true" ng-change="eventCtrl.filterByEmployerTypes()" ng-model="eventCtrl.employer"> Ja
                 </label>
                 <label class="radio-inline">
-                    <input type="radio" value="false" ng-model="eventCtrl.employer"> Nej
+                    <input type="radio" value="false" ng-change="eventCtrl.filterByEmployerTypes()" ng-model="eventCtrl.employer"> Nej
                 </label>
             </div>
         </div>
@@ -33,10 +34,10 @@
             <label for="companyForm" class="col-sm-3">Moms</label>
             <div class="col-sm-9">
                 <label class="radio-inline">
-                    <input type="radio" value="true" ng-model="eventCtrl.vat"> Ja
+                    <input type="radio" value="true" ng-change="eventCtrl.filterByVat()" ng-model="eventCtrl.vat"> Ja
                 </label>
                 <label class="radio-inline">
-                    <input type="radio" value="false" ng-model="eventCtrl.vat"> Nej
+                    <input type="radio" value="false" ng-change="eventCtrl.filterByVat()" ng-model="eventCtrl.vat"> Nej
                 </label>
             </div>
         </div>
@@ -66,9 +67,7 @@
     </form>
 </div>
 <div class="wrapper events" ng-repeat="month in eventCtrl.monthsWithEvents track by $index">
-    <div class="event-head" ng-show="month.value.length > 0">
-      <!--   <label for="" style="float: left;padding: 4px;">Datum</label>
-        <label for="" style="float: left;padding: 4px; margin-left: 20px">Rubrik</label> -->
+    <div class="event-head">
         <label for="">{{month.key}}</label>
     </div>
     <div class="event-body" ng-repeat="data in month.value track by $index">

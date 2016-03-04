@@ -12,7 +12,13 @@ export default ngModule => {
         let getCategories = () => {
             EventService.getCategories().then();
         }
-
+        let toBelean = (value) => {
+            if (value == "true") {
+                return true;
+            } else {
+                return null;
+            }
+        }
         getCategories()
 
         function getLastDayOfMonth(date) {
@@ -108,8 +114,12 @@ export default ngModule => {
             vm.monthsWithEvents.forEach(month => {
                 month.value = [];
             });
-            vm.allEvenets.filter(type => {
-                return type.companyTypes.indexOf(vm.companyForm) > -1;
+            vm.allEvenets.filter(event => {
+                if (vm.companyForm !== "Alla") {
+                    return event.companyTypes.indexOf(vm.companyForm) > -1;
+                } else {
+                    return event;
+                }
             }).forEach(event => {
                 for (var i = 0; i < vm.monthsWithEvents.length; i++) {
                     if (new Date(event.date).getMonth() == i) {
@@ -122,10 +132,11 @@ export default ngModule => {
             vm.monthsWithEvents.forEach(month => {
                 month.value = [];
             });
-            vm.allEvenets.filter(type => {
-                return type.endOfYears.indexOf(vm.endsOfYear) > -1;
-                 if(companyFormChanged){
-                    return type.companyTypes.indexOf(vm.companyForm) > -1 && type.endOfYears.indexOf(vm.endsOfYear) > -1;
+            vm.allEvenets.filter(event => {
+                if (vm.endsOfYear !== "Alla") {
+                    return event.endOfYears.indexOf(vm.endsOfYear) > -1;
+                } else {
+                    return event;
                 }
             }).forEach(event => {
                 for (var i = 0; i < vm.monthsWithEvents.length; i++) {
@@ -134,7 +145,52 @@ export default ngModule => {
                     }
                 }
             });
-
+        }
+        vm.filterByFormsTypes = () => {
+            vm.monthsWithEvents.forEach(month => {
+                month.value = [];
+            });
+            vm.allEvenets.filter(event => {
+                if (vm.selectedSubmissionForm !== "Alla") {
+                    return event.form == vm.selectedSubmissionForm;
+                } else {
+                    return event;
+                }
+            }).forEach(event => {
+                for (var i = 0; i < vm.monthsWithEvents.length; i++) {
+                    if (new Date(event.date).getMonth() == i) {
+                        vm.monthsWithEvents[i].value.push(event)
+                    }
+                }
+            });
+        }
+        vm.filterByEmployerTypes = () => {
+            vm.monthsWithEvents.forEach(month => {
+                month.value = [];
+            });
+            vm.allEvenets.filter(event => {
+                return event.employer == toBelean(vm.employer);
+            }).forEach(event => {
+                for (var i = 0; i < vm.monthsWithEvents.length; i++) {
+                    if (new Date(event.date).getMonth() == i) {
+                        vm.monthsWithEvents[i].value.push(event)
+                    }
+                }
+            });
+        }      
+         vm.filterByVat = () => {
+            vm.monthsWithEvents.forEach(month => {
+                month.value = [];
+            });
+            vm.allEvenets.filter(event => {
+                return event.vatRegistered == toBelean(vm.vat);
+            }).forEach(event => {
+                for (var i = 0; i < vm.monthsWithEvents.length; i++) {
+                    if (new Date(event.date).getMonth() == i) {
+                        vm.monthsWithEvents[i].value.push(event)
+                    }
+                }
+            });
         }
     }
 }
