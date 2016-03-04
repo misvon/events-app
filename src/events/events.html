@@ -1,4 +1,3 @@
-<div class="wrapper">
     <form class="form-horizontal">
         <div class="custom-form-grupp">
             <label for="companyForm" class="col-sm-3">Företagsform</label>
@@ -66,7 +65,7 @@
         </div>
     </form>
 </div>
-<div class="wrapper events" ng-repeat="month in eventCtrl.monthsWithEvents track by $index">
+<div class="events" ng-repeat="month in eventCtrl.monthsWithEvents track by $index">
     <div class="event-head">
         <label for="">{{month.key}}</label>
     </div>
@@ -76,4 +75,3 @@
         </div>
         <p>{{data.renderedText}}</p>
     </div>
-</div>
