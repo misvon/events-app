@@ -7,7 +7,7 @@ export default ngModule => {
         vm.vat = 'true';
         vm.euTrade = 'true';
         let companyFormChanged = false;
-        let endsOfYearsChanged = false;
+        let endsOfYearChanged = false;
         let selectedSubmissionFormChanged = false;
         let getCategories = () => {
             EventService.getCategories().then();
@@ -76,15 +76,15 @@ export default ngModule => {
         vm.monthsWithEvents = [];
         let getEndsOfYear = () => {
             EventService.getEndsOfYear().then(result => {
-                vm.endsOfYears = result.data;
-                vm.endsOfYears.forEach(month => {
+                vm.endsOfYear = result.data;
+                vm.endsOfYear.forEach(month => {
                     var obj = {};
                     obj.key = month;
                     obj.value = [];
                     vm.monthsWithEvents.push(obj)
                 });
-                vm.endsOfYears.unshift('Alla');
-                vm.endsOfYear = vm.endsOfYears[0];
+                vm.endsOfYear.unshift('Alla');
+                vm.endsOfYear = vm.endsOfYear[0];
             });
         }
 
@@ -128,7 +128,7 @@ export default ngModule => {
                 }
             });
         }
-        vm.filterByEndsOfYears = () => {
+        vm.filterByEndsOfYear = () => {
             vm.monthsWithEvents.forEach(month => {
                 month.value = [];
             });
@@ -177,7 +177,7 @@ export default ngModule => {
                     }
                 }
             });
-        }      
+        }
          vm.filterByVat = () => {
             vm.monthsWithEvents.forEach(month => {
                 month.value = [];

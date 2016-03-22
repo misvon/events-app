@@ -8,13 +8,13 @@
         <div class="custom-form-grupp">
             <label for="endsOfYears" class="col-sm-3">Räkenskapsåret slutar i</label>
             <div class="col-sm-9">
-                <select class="custom-form" name="endsOfYears" ng-change="eventCtrl.filterByEndsOfYears()" id="endsOfYears" ng-model="eventCtrl.endsOfYear" ng-options="endsOfYear for endsOfYear in eventCtrl.endsOfYears"></select>
+                <select class="custom-form" name="endsOfYears" ng-change="eventCtrl.filterByEndsOfYear()" id="endsOfYears" ng-model="eventCtrl.endsOfYear" ng-options="endsOfYear for endsOfYear in eventCtrl.endsOfYears"></select>
             </div>
         </div>
         <div class="custom-form-grupp">
             <label for="submissionForm" class="col-sm-3">Inlämning av deklarationer</label>
             <div class="col-sm-9">
-                <select class="custom-form" ng-change="eventCtrl.filterByFormsTypes()" name="submissionForm" id="submissionForm" 
+                <select class="custom-form" ng-change="eventCtrl.filterByFormsTypes()" name="submissionForm" id="submissionForm"
                 ng-model="eventCtrl.selectedSubmissionForm" ng-options="submissionForm for submissionForm in eventCtrl.submissionForms"></select>
             </div>
         </div>

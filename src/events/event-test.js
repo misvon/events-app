@@ -3,7 +3,7 @@ export default ngModule => {
         var $compile, $rootScope, $httpBackend, categories,
             ApiService, $controller, events, companyTypes, forms,
             endOfYears, vat, companySizes, eventsByPeriod, currentYear;
-        let baseUrl = "http://localhost:8085/EventsApi/resources/";
+        let baseUrl = "http://localhost:8084/EventsApi/resources/";
         let categoryData = ["Årsredovisning", "Inkomstdeklaration", "Sista dag för beslut om fastighetstaxering"];
         let eventsData = [{
             "date": "2016-01-04",
@@ -77,14 +77,14 @@ export default ngModule => {
             $httpBackend = $injector.get('$httpBackend');
             ApiService = _ApiService_;
             events = $httpBackend.whenGET(baseUrl + 'events').respond(eventsData);
-            categories = $httpBackend.whenGET(baseUrl + 'events/categories').respond(categoryData);
-            companyTypes = $httpBackend.whenGET(baseUrl + 'events/company-types').respond(companyTypeData);
-            forms = $httpBackend.whenGET(baseUrl + 'events/forms').respond(formsData);
-            vat = $httpBackend.whenGET(baseUrl + 'events/vat-periods').respond(vatData);
-            companySizes = $httpBackend.whenGET(baseUrl + 'events/company-sizes').respond(companySizesData);
-            endOfYears = $httpBackend.whenGET(baseUrl + 'events/ends-of-year').respond(endOfYearsData);
+            categories = $httpBackend.whenGET(baseUrl + 'options/categories').respond(categoryData);
+            companyTypes = $httpBackend.whenGET(baseUrl + 'options/company-types').respond(companyTypeData);
+            forms = $httpBackend.whenGET(baseUrl + 'options/forms').respond(formsData);
+            vat = $httpBackend.whenGET(baseUrl + 'options/vat-periods').respond(vatData);
+            companySizes = $httpBackend.whenGET(baseUrl + 'options/company-sizes').respond(companySizesData);
+            endOfYears = $httpBackend.whenGET(baseUrl + 'options/ends-of-year').respond(endOfYearsData);
             eventsByPeriod = $httpBackend.whenGET(baseUrl + 'events?from=2016-01-01&to=2016-12-31').respond(eventsData);
-            currentYear = $httpBackend.whenGET(baseUrl + 'events/years').respond(currentYeardData);
+            currentYear = $httpBackend.whenGET(baseUrl + 'years').respond(currentYeardData);
         }));
 
         afterEach(function() {
@@ -95,7 +95,7 @@ export default ngModule => {
         it('should test event module', () => {
             expect(ngModule.name).toEqual("EventsApp");
         });
-     
+
         it('should test event request', () => {
             $httpBackend.expectGET(baseUrl + 'events');
             events.respond(eventsData)
@@ -104,9 +104,9 @@ export default ngModule => {
             $httpBackend.flush();
             expect(eventsData).toEqual(eventsData);
         });
-     
+
         it('should test category request', () => {
-            $httpBackend.expectGET(baseUrl + 'events/categories');
+            $httpBackend.expectGET(baseUrl + 'options/categories');
             categories.respond(categoryData)
             var $scope = {};
             var eventController = $controller('EventCtrl', { $scope: $scope });
@@ -123,7 +123,7 @@ export default ngModule => {
             expect(eventsData).toEqual(eventsData);
         });
         it('should test company-type request', () => {
-            $httpBackend.expectGET(baseUrl + 'events/company-types');
+            $httpBackend.expectGET(baseUrl + 'options/company-types');
             events.respond(companyTypeData)
             var $scope = {};
             var eventController = $controller('EventCtrl', { $scope: $scope });
@@ -131,7 +131,7 @@ export default ngModule => {
             expect(companyTypeData).toEqual(companyTypeData);
         });
         it('should test forms request', () => {
-            $httpBackend.expectGET(baseUrl + 'events/forms');
+            $httpBackend.expectGET(baseUrl + 'options/forms');
             forms.respond(formsData)
             var $scope = {};
             var eventController = $controller('EventCtrl', { $scope: $scope });
@@ -139,7 +139,7 @@ export default ngModule => {
             expect(formsData).toEqual(formsData);
         });
         it('should test vat-period request', () => {
-            $httpBackend.expectGET(baseUrl + 'events/vat-periods');
+            $httpBackend.expectGET(baseUrl + 'options/vat-periods');
             vat.respond(vatData)
             var $scope = {};
             var eventController = $controller('EventCtrl', { $scope: $scope });
@@ -147,24 +147,24 @@ export default ngModule => {
             expect(vatData).toEqual(vatData);
         });
         it('should test company-sizes request', () => {
-            $httpBackend.expectGET(baseUrl + 'events/company-sizes');
+            $httpBackend.expectGET(baseUrl + 'options/company-sizes');
             companySizes.respond(companySizesData)
             var $scope = {};
             var eventController = $controller('EventCtrl', { $scope: $scope });
             $httpBackend.flush();
             expect(companySizesData).toEqual(companySizesData);
         });
-        it('should test end-of-year request', () => {
-            $httpBackend.expectGET(baseUrl + 'events/ends-of-year');
-            endOfYears.respond(currentYear)
+        it('should test ends-of-year request', () => {
+            $httpBackend.expectGET(baseUrl + 'options/ends-of-year');
+            endOfYears.respond(endOfYearsData)
             var $scope = {};
             var eventController = $controller('EventCtrl', { $scope: $scope });
             $httpBackend.flush();
-            expect(currentYear).toEqual(currentYear);
+            expect(endOfYearsData).toEqual(endOfYearsData);
         });
 
         it('should test current-year request', () => {
-            $httpBackend.expectGET(baseUrl + 'events/years');
+            $httpBackend.expectGET(baseUrl + 'years');
             currentYear.respond(currentYeardData)
             var $scope = {};
             var eventController = $controller('EventCtrl', { $scope: $scope });
