@@ -16,29 +16,16 @@ var config = {
     })
   ],
   module: {
-    loaders: [{
-      test: /\.js$/,
-      loaders: ['ng-annotate', 'babel?presets=es2015'],
-      exclude: /node_modules/
-    }, {
-      test: /\.html$/,
-      loader: 'raw'
-    }, {
-      test: /\.css$/,
-      loader: 'style!css!sass'
-    }, {
-      test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-      loader: "url-loader?limit=10000&minetype=application/font-woff"
-    }, {
-      test: /\.(ttf|eot|svg|jpeg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-      loader: "file-loader"
-    }, {
-      test: /\.json$/,
-      loader: 'json'
-    }, {
-      test: /\.scss$/,
-      loader: "style!css!sass"
-    }]
+    loaders: [
+                  { test: /\.html$/, loader: 'raw'},
+                  { test: /\.js?$/, exclude: /node_modules/, loaders: ['ng-annotate', 'babel?presets=es2015'] },
+                  { test: /\.css$/, loader: 'style-loader!css-loader' },
+                  { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file" },
+                  { test: /\.(woff|woff2)$/, loader:"url?prefix=font/&limit=5000" },
+                  { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" },
+                  { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml" },
+                  { test: /\.json$/, loader: 'json' }
+  ]
   }
 };
 switch(process.env.NODE_ENV){

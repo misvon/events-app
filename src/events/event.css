@@ -1,8 +1,4 @@
-.wrapper {
-    max-width: 70%;
-    margin: 0 auto;
-}
-
+/*
 .custom-form {
     display: block;
     width: 50%;
@@ -24,6 +20,7 @@
 .custom-form-grupp {
     padding: 2px;
 }
+
 
 .col-sm-3 {
     width: 25%;
@@ -49,32 +46,17 @@ label {
     font-weight: bold;
 }
 
+*/
 input[type="radio"]:hover {
     cursor: pointer;
 }
 
-.event-head {
-    text-align: center;
-    background-color: #f5a620;
-    border: 2px solid;
-    border-color: #f5a620;
+
+.table-striped tbody tr:nth-child(odd){
+  background-color: #ffe6ba;
 }
 
-.event-body {
-    border-left: 2px solid;
-    border-right: 2px solid;
-    border-bottom: 1px solid;
-    border-color: #f5a620;
-}
-
-.event-title {
-    background-color: #ffe6ba;
-    padding-left: 2px;
-    text-align: left;
-}
-
-.event-body p {
-    padding: 2px;
-}.events{
-    margin-top: 20px;
+.table-striped thead tr th {
+  text-align: center;
+  background-color: #f5a620
 }

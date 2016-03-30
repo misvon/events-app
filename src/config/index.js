@@ -1,4 +1,4 @@
 import config from './config.js';
-export default ngModule =>{
+export default (ngModule) =>{
 	config(ngModule)
 }
