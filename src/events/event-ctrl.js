@@ -25,28 +25,6 @@ export default ngModule => {
     let endsOfYearChanged = false;
     let selectedSubmissionFormChanged = false;
 
-    vm.dateOptions = {
-      formatYear: 'yy',
-      startingDay: 1
-    }
-
-    vm.format = 'yyyy-MM-dd';
-    vm.altInputFormats = ['M!/d!/yyyy'];
-
-    vm.open1 = function() {
-      vm.popup1.opened = true;
-    };
-    vm.open2 = function() {
-      vm.popup2.opened = true;
-    };
-
-    vm.popup1 = {
-      opened: false
-    };
-    vm.popup2 = {
-      opened: false
-    };
-
     let getCategories = () => {
       EventService.getCategories().then();
     }
