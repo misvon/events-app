@@ -1,5 +1,8 @@
 {
 	"dev":{
-		"baseUrl":"http://localhost:8084/EventsApi/resources/"
+		"baseUrl":"http://localhost:8085/EventsApi/resources/"
+	},
+	"prod":{
+		"baseUrl":"http://events-prod.jelastic.elastx.net/EventsApi/resources/events/"
 	}
 }

@@ -8,7 +8,7 @@ if (ON_TEST) {
   require('angular-mocks/angular-mocks');
 }
 
-const EventApp = angular.module('EventsApp',[pikaday]).config(function($httpProvider){
+const EventApp = angular.module('EventsApp',['pikaday']).config(function($httpProvider){
 	$httpProvider.interceptors.push(function($q) {
 	  return {
 	   'request': function(config) {
