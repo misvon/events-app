@@ -55,6 +55,9 @@
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
-    "bootstrap": "^3.3.6"
+    "bootstrap": "^3.3.6",
+    "bootstrap-datepicker": "^1.6.0",
+    "jquery": "^2.2.3",
+    "moment": "^2.12.0"
   }
 }

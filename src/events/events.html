@@ -1,91 +1,77 @@
-<form class="form-horizontal">
-  <div class="form-grupp row">
-    <label for="toDate" class="col-sm-3"></label>
-    <div class="col-sm-2">
-      <label for="fromDate">Från och med:</label>
-      <p class="input-group">
-        <input id="fromDate" type="text" class="form-control" uib-datepicker-popup="{{eventCtrl.format}}" ng-model="eventCtrl.fromDate" is-open="eventCtrl.popup1.opened" datepicker-options="eventCtrl.dateOptions" ng-required="true" close-text="Stäng" alt-input-formats="eventCtrl.altInputFormats"/>
-        <span class="input-group-btn">
-          <button type="button" class="btn btn-default" ng-click="eventCtrl.open1()">
-            <i class="glyphicon glyphicon-calendar"></i>
-          </button>
-        </span>
-      </p>
+<form class="form-grupp">
+    <div class="col-sm-12">
+        <div class="row">
+            <div style="margin-left: 15px">
+                <label for="">Från och med:
+                    <input id="fromDate" type="text" class="date" ng-model="eventCtrl.fromDate">
+                </label>
+                <label for="" style="margin-left: 15px">Till och med:
+                    <input id="toDate" type="text" class="date" ng-model="eventCtrl.toDate">
+                </label>
+            </div>
+        </div>
     </div>
-    <div class="col-sm-2">
-      <label for="toDate">Till och med:</label>
-      <p class="input-group">
-        <input id="toDate" type="text" class="form-control" uib-datepicker-popup="{{eventCtrl.format}}" ng-model="eventCtrl.toDate" is-open="eventCtrl.popup2.opened" datepicker-options="eventCtrl.dateOptions" ng-required="true" close-text="Stäng" alt-input-formats="eventCtrl.altInputFormats"/>
-        <span class="input-group-btn">
-          <button type="button" class="btn btn-default" ng-click="eventCtrl.open2()">
-            <i class="glyphicon glyphicon-calendar"></i>
-          </button>
-        </span>
-      </p>
-    </div>
-  </div>
-  <div class="form-grupp row">
-    <label for="companyForm" class="col-sm-3">Företagsform</label>
-    <div class="col-sm-9">
-      <select class="form-control" name="companyForm" id="companyForm" ng-model="eventCtrl.selectedCompanyForm" ng-options="companyForm for companyForm in eventCtrl.companyForms"></select>
-    </div>
-  </div>
-  <div class="form-grupp row">
-    <label for="endsOfYears" class="col-sm-3">Räkenskapsåret slutar i</label>
-    <div class="col-sm-9">
-      <select class="form-control" name="endsOfYears" id="endsOfYears" ng-model="eventCtrl.selectedEndOfYear" ng-options="endOfYear for endOfYear in eventCtrl.endsOfYear"></select>
-    </div>
-  </div>
-  <div class="form-grupp row">
-    <label for="submissionForm" class="col-sm-3">Inlämning av deklarationer</label>
-    <div class="col-sm-9">
-      <select class="form-control" name="submissionForm" id="submissionForm" ng-model="eventCtrl.selectedSubmissionForm" ng-options="submissionForm for submissionForm in eventCtrl.submissionForms"></select>
-    </div>
-  </div>
-  <div class="form-grupp row">
-    <label for="companyForm" class="col-sm-3">Arbetsgivare</label>
-    <div class="col-sm-9">
-      <label class="radio-inline">
-        <input type="radio" value="true" ng-model="eventCtrl.employer">
-        Ja
-      </label>
-      <label class="radio-inline">
-        <input type="radio" value="false" ng-model="eventCtrl.employer">
-        Nej
-      </label>
-    </div>
-  </div>
-  <div class="form-grupp row">
-    <label for="companyForm" class="col-sm-3">Moms</label>
-    <div class="col-sm-9">
-      <label class="radio-inline">
-        <input type="radio" ng-value="true" ng-model="eventCtrl.vat">
-        Ja
-      </label>
-      <label class="radio-inline">
-        <input type="radio" ng-value="false" ng-model="eventCtrl.vat">
-        Nej
-      </label>
-    </div>
-  </div>
-  <div class="form-grupp row">
-    <label for="vatPeriod" class="col-sm-3">Momsredovisningsperiod</label>
-    <div class="col-sm-9">
-      <select ng-disabled="!eventCtrl.vat" class="form-control" name="vatPeriod" id="vatPeriod" ng-model="eventCtrl.selectedVatPeriod" ng-options=" vatPeriod for vatPeriod in eventCtrl.vatPeriods"></select>
-    </div>
-  </div>
-  <div class="form-grupp row">
-    <label for="companySize" class="col-sm-3">Omsättning</label>
-    <div class="col-sm-9">
-      <select ng-disabled="!eventCtrl.vat" class="form-control" name="companySize" id="companySize" ng-model="eventCtrl.selectedCompanySizes" ng-options="companySize.label for companySize in eventCtrl.companySizes"></select>
-    </div>
-  </div>
-  <div class="form-grupp row">
-    <label for="tradeArea" class="col-sm-3">Handelsområde</label>
-    <div class="col-sm-9">
-      <select ng-disabled="!eventCtrl.vat" class="form-control" name="tradeArea" id="tradeArea" ng-model="eventCtrl.selectedTradeArea" ng-options="tradeArea for tradeArea in eventCtrl.tradeAreas"></select>
-    </div>
-    <!--
+    <div class="col-sm-12">
+        <div class="row">
+            <label for="companyForm" class="col-sm-3">Företagsform</label>
+            <div class="col-sm-9">
+                <select class="form-control" name="companyForm" id="companyForm" ng-model="eventCtrl.selectedCompanyForm" ng-options="companyForm for companyForm in eventCtrl.companyForms"></select>
+            </div>
+        </div>
+        <div class="row">
+            <label for="endsOfYears" class="col-sm-3">Räkenskapsåret slutar i</label>
+            <div class="col-sm-9">
+                <select class="form-control" name="endsOfYears" id="endsOfYears" ng-model="eventCtrl.selectedEndOfYear" ng-options="endOfYear for endOfYear in eventCtrl.endsOfYear"></select>
+            </div>
+        </div>
+        <div class="row">
+            <label for="submissionForm" class="col-sm-3">Inlämning av deklarationer</label>
+            <div class="col-sm-9">
+                <select class="form-control" name="submissionForm" id="submissionForm" ng-model="eventCtrl.selectedSubmissionForm" ng-options="submissionForm for submissionForm in eventCtrl.submissionForms"></select>
+            </div>
+        </div>
+        <div class="row">
+            <label for="companyForm" class="col-sm-3">Arbetsgivare</label>
+            <div class="col-sm-9">
+                <label class="radio-inline">
+                    <input type="radio" value="true" ng-model="eventCtrl.employer"> Ja
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" value="false" ng-model="eventCtrl.employer"> Nej
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <label for="companyForm" class="col-sm-3">Moms</label>
+            <div class="col-sm-9">
+                <label class="radio-inline">
+                    <input type="radio" ng-value="true" ng-model="eventCtrl.vat"> Ja
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" ng-value="false" ng-model="eventCtrl.vat"> Nej
+                </label>
+            </div>
+        </div>
+        <div ng-show="eventCtrl.vat">
+            <div class="row">
+                <label for="vatPeriod" class="col-sm-3">Momsredovisningsperiod</label>
+                <div class="col-sm-9">
+                    <select ng-disabled="!eventCtrl.vat" class="form-control" name="vatPeriod" id="vatPeriod" ng-model="eventCtrl.selectedVatPeriod" ng-options=" vatPeriod for vatPeriod in eventCtrl.vatPeriods"></select>
+                </div>
+            </div>
+            <div class="row">
+                <label for="companySize" class="col-sm-3">Omsättning</label>
+                <div class="col-sm-9">
+                    <select ng-disabled="!eventCtrl.vat" class="form-control" name="companySize" id="companySize" ng-model="eventCtrl.selectedCompanySizes" ng-options="companySize.label for companySize in eventCtrl.companySizes"></select>
+                </div>
+            </div>
+            <div class="row">
+                <label for="tradeArea" class="col-sm-3">Handelsområde</label>
+                <div class="col-sm-9">
+                    <select ng-disabled="!eventCtrl.vat" class="form-control" name="tradeArea" id="tradeArea" ng-model="eventCtrl.selectedTradeArea" ng-options="tradeArea for tradeArea in eventCtrl.tradeAreas"></select>
+                </div>
+            </div>
+            <!--
     <div class="col-sm-9">
       <label class="radio-inline">
         <input type="radio" value="EU" ng-model="eventCtrl.euTrade">
@@ -97,30 +83,37 @@
       </label>
     </div>
   -->
-  </div>
-  <div class="form-grupp row">
-    <div class="col-sm-offset-2 col-sm-9">
-      <button class="btn btn-primary" type="button" ng-click="eventCtrl.fetchEvents()">Hämta</button>
-    </div>
-  </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-6">
+                    <button class="btn btn-primary" type="button" ng-click="eventCtrl.fetchEvents()">Hämta</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table table-striped" ng-repeat="month in eventCtrl.monthsWithEvents">
+                        <thead>
+                            <tr>
+                                <th colspan="2">
+                                    {{month.key}}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="data in month.value">
+                                <td class="date-row">
+                                    {{data.date | date : 'd'}}
+                                </td>
+                                <td class="content-row">
+                                    {{data.renderedText}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
 </form>
-
-<table class="table table-striped" ng-repeat="month in eventCtrl.monthsWithEvents">
-  <thead>
-    <tr>
-      <th colspan="2">
-        {{month.key}}
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="data in month.value">
-      <td>
-        {{data.date | date : 'd'}}
-      </td>
-      <td>
-        {{data.renderedText}}
-      </td>
-    </tr>
-  </tbody>
-</table>
