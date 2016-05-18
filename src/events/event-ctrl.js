@@ -1,25 +1,48 @@
 import moment from 'moment';
-import $ from 'jquery';
 import 'bootstrap-datepicker/dist/css/bootstrap-datepicker.standalone.css';
 import 'bootstrap-datepicker/dist/js/bootstrap-datepicker.js';
 import 'moment/locale/sv.js';
-
+import $ from 'jquery';
 export default ngModule => {
     ngModule.controller('EventCtrl', EventCtrl);
-    console.log(moment.locale());
 
-    function EventCtrl(ApiService, EventService, $scope) {
+    function EventCtrl(ApiService, EventService, $scope, $window) {
         const vm = this;
-        vm.employer = 'true';
-        vm.vat = true;
+        vm.employer = JSON.parse($window.sessionStorage.getItem('employer')) || true;
+        vm.vat = JSON.parse($window.sessionStorage.getItem('vat')) || true;;
+        if(JSON.parse($window.sessionStorage.getItem('vat')) == true){
+            vm.vat = true;
+        }else{
+            vm.vat = false;
+        }  
+         if(JSON.parse($window.sessionStorage.getItem('employer')) == true){
+            vm.employer = true;
+        }else{
+            vm.employer = false;
+        }
         vm.euTrade = 'EU';
-        $(function() {
-            $('#fromDate').datepicker({
-                format: 'yyyy-mm-dd'
-            });
-            $('#toDate').datepicker({
-                format: 'yyyy-mm-dd'
-            });
+        $.fn.datepicker.dates['en'] = {
+            days: ["Söndag", "Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag"],
+            daysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+            daysMin: ["Sö", "Må", "Ti", "On", "To", "Fr", "Lö"],
+            months: ["Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "December"],
+            monthsShort: ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"],
+            today: "Idag",
+            clear: "Rensa",
+            format: "yyyy-mm-dd",
+            titleFormat: "MM yyyy",
+            /* Leverages same syntax as 'format' */
+            weekStart: 1
+        };
+
+        $('#fromDate').datepicker({
+            days: ["S", "d", "f", "wf", "we", "wre", "we"],
+            daysMin: ["sfgs", "srfg", "fg", "afd", "Tdf", "sdf", "sf"],
+            format: 'yyyy-mm-dd'
+        });
+        $('#toDate').datepicker({
+            language: "sv",
+            format: 'yyyy-mm-dd'
         });
         let months = {
             "0": "Januari",
@@ -39,28 +62,6 @@ export default ngModule => {
         let endsOfYearChanged = false;
         let selectedSubmissionFormChanged = false;
 
-        vm.dateOptions = {
-            formatYear: 'yy',
-            startingDay: 1
-        }
-
-        vm.format = 'yyyy-MM-dd';
-        vm.altInputFormats = ['M!/d!/yyyy'];
-
-        vm.open1 = function() {
-            vm.popup1.opened = true;
-        };
-        vm.open2 = function() {
-            vm.popup2.opened = true;
-        };
-
-        vm.popup1 = {
-            opened: false
-        };
-        vm.popup2 = {
-            opened: false
-        };
-
         let getCategories = () => {
             EventService.getCategories().then();
         }
@@ -78,11 +79,19 @@ export default ngModule => {
 
         getDefaultDates();
 
+        vm.passedEvents = (date) => {
+            var today = moment(new Date()).format('L');
+            if (date < today) {
+                return 'passedEvents';
+            }
+        }
+
         let getCompanyTypes = () => {
             EventService.getCompanyTypes().then(result => {
                 vm.companyForms = result.data;
+                var index = vm.companyForms.indexOf(JSON.parse($window.sessionStorage.getItem('companyform'))) || 0;
                 vm.companyForms.unshift('Alla');
-                vm.selectedCompanyForm = vm.companyForms[0];
+                vm.selectedCompanyForm = vm.companyForms[index + 1];
             });
         }
         getCompanyTypes()
@@ -90,8 +99,9 @@ export default ngModule => {
         let getForms = () => {
             EventService.getForms().then(result => {
                 vm.submissionForms = result.data;
+                var index = vm.submissionForms.indexOf(JSON.parse($window.sessionStorage.getItem('submissionform'))) || 0;
                 vm.submissionForms.unshift('Alla');
-                vm.selectedSubmissionForm = vm.submissionForms[0];
+                vm.selectedSubmissionForm = vm.submissionForms[index + 1];
             });
         }
 
@@ -100,14 +110,16 @@ export default ngModule => {
         let getVatPeriods = () => {
             EventService.getVatPeriods().then(result => {
                 vm.vatPeriods = result.data;
+                var index = vm.vatPeriods.indexOf(JSON.parse($window.sessionStorage.getItem('selectedVatPeriod'))) || 0
                 vm.vatPeriods.unshift('Alla');
-                vm.selectedVatPeriod = vm.vatPeriods[0];
+                vm.selectedVatPeriod = vm.vatPeriods[index + 1];
             });
         }
 
         getVatPeriods();
 
         let getCompanySizes = () => {
+             var index = 0;
             EventService.getCompanySizes().then(result => {
                 vm.companySizes = [];
                 result.data.forEach(size => {
@@ -119,14 +131,21 @@ export default ngModule => {
                     }
                     vm.companySizes.push({
                         id: size.id,
-                        label: label
+                        label: label,
+                        index:index++
                     });
                 });
                 vm.companySizes.unshift({
                     id: null,
                     label: 'Alla'
                 });
-                vm.selectedCompanySizes = vm.companySizes[0];
+                var companySize =  JSON.parse($window.sessionStorage.getItem('selectedCompanySizes')) || 0;
+                if(companySize.id == null){
+                    companySize.index = 0;
+                }else{
+                    companySize.index = companySize.index + 1;
+                }
+                vm.selectedCompanySizes = vm.companySizes[companySize.index];
             });
         }
 
@@ -135,8 +154,9 @@ export default ngModule => {
         let getEndsOfYear = () => {
             EventService.getEndsOfYear().then(result => {
                 vm.endsOfYear = result.data;
+                var index = vm.endsOfYear.indexOf(JSON.parse($window.sessionStorage.getItem('endofyear'))) || 0;
                 vm.endsOfYear.unshift('Alla');
-                vm.selectedEndOfYear = vm.endsOfYear[0];
+                vm.selectedEndOfYear = vm.endsOfYear[index + 1];
             });
         }
 
@@ -145,8 +165,9 @@ export default ngModule => {
         let getTradeAreas = () => {
             EventService.getTradeAreas().then(result => {
                 vm.tradeAreas = result.data;
+                var index = vm.tradeAreas.indexOf(JSON.parse($window.sessionStorage.getItem('selectedTradeArea'))) || 0;
                 vm.tradeAreas.unshift('Alla');
-                vm.selectedTradeArea = vm.tradeAreas[0];
+                vm.selectedTradeArea = vm.tradeAreas[index + 1];
             })
         }
 
@@ -168,6 +189,10 @@ export default ngModule => {
                 })
             })
         }
+        vm.choiseStore = (type, choise) => {
+            $window.sessionStorage.setItem(type, JSON.stringify(choise));
+        }
+
 
         function getUrlParams() {
             var result = "";

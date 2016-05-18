@@ -15,29 +15,29 @@
         <div class="row">
             <label for="companyForm" class="col-sm-3">Företagsform</label>
             <div class="col-sm-9">
-                <select class="form-control" name="companyForm" id="companyForm" ng-model="eventCtrl.selectedCompanyForm" ng-options="companyForm for companyForm in eventCtrl.companyForms"></select>
+                <select ng-change="eventCtrl.choiseStore('companyform',eventCtrl.selectedCompanyForm)" class="form-control" name="companyForm" id="companyForm" ng-model="eventCtrl.selectedCompanyForm" ng-options="companyForm for companyForm in eventCtrl.companyForms"></select>
             </div>
         </div>
         <div class="row">
             <label for="endsOfYears" class="col-sm-3">Räkenskapsåret slutar i</label>
             <div class="col-sm-9">
-                <select class="form-control" name="endsOfYears" id="endsOfYears" ng-model="eventCtrl.selectedEndOfYear" ng-options="endOfYear for endOfYear in eventCtrl.endsOfYear"></select>
+                <select ng-change="eventCtrl.choiseStore('endofyear',eventCtrl.selectedEndOfYear)" class="form-control" name="endsOfYears" id="endsOfYears" ng-model="eventCtrl.selectedEndOfYear" ng-options="endOfYear for endOfYear in eventCtrl.endsOfYear"></select>
             </div>
         </div>
         <div class="row">
             <label for="submissionForm" class="col-sm-3">Inlämning av deklarationer</label>
             <div class="col-sm-9">
-                <select class="form-control" name="submissionForm" id="submissionForm" ng-model="eventCtrl.selectedSubmissionForm" ng-options="submissionForm for submissionForm in eventCtrl.submissionForms"></select>
+                <select ng-change="eventCtrl.choiseStore('submissionform',eventCtrl.selectedSubmissionForm)" class="form-control" name="submissionForm" id="submissionForm" ng-model="eventCtrl.selectedSubmissionForm" ng-options="submissionForm for submissionForm in eventCtrl.submissionForms"></select>
             </div>
         </div>
         <div class="row">
             <label for="companyForm" class="col-sm-3">Arbetsgivare</label>
             <div class="col-sm-9">
                 <label class="radio-inline">
-                    <input type="radio" value="true" ng-model="eventCtrl.employer"> Ja
+                    <input type="radio" ng-change="eventCtrl.choiseStore('employer',eventCtrl.employer)"  ng-value="true" ng-model="eventCtrl.employer"> Ja
                 </label>
                 <label class="radio-inline">
-                    <input type="radio" value="false" ng-model="eventCtrl.employer"> Nej
+                    <input type="radio" ng-change="eventCtrl.choiseStore('employer',eventCtrl.employer)" ng-value="false" ng-model="eventCtrl.employer"> Nej
                 </label>
             </div>
         </div>
@@ -45,10 +45,10 @@
             <label for="companyForm" class="col-sm-3">Moms</label>
             <div class="col-sm-9">
                 <label class="radio-inline">
-                    <input type="radio" ng-value="true" ng-model="eventCtrl.vat"> Ja
+                    <input ng-change="eventCtrl.choiseStore('vat',eventCtrl.vat)" type="radio" ng-value="true" ng-model="eventCtrl.vat"> Ja
                 </label>
                 <label class="radio-inline">
-                    <input type="radio" ng-value="false" ng-model="eventCtrl.vat"> Nej
+                    <input ng-change="eventCtrl.choiseStore('vat',eventCtrl.vat)" type="radio" ng-value="false" ng-model="eventCtrl.vat"> Nej
                 </label>
             </div>
         </div>
@@ -56,19 +56,19 @@
             <div class="row">
                 <label for="vatPeriod" class="col-sm-3">Momsredovisningsperiod</label>
                 <div class="col-sm-9">
-                    <select ng-disabled="!eventCtrl.vat" class="form-control" name="vatPeriod" id="vatPeriod" ng-model="eventCtrl.selectedVatPeriod" ng-options=" vatPeriod for vatPeriod in eventCtrl.vatPeriods"></select>
+                    <select  ng-change="eventCtrl.choiseStore('selectedVatPeriod',eventCtrl.selectedVatPeriod)" ng-disabled="!eventCtrl.vat" class="form-control" name="vatPeriod" id="vatPeriod" ng-model="eventCtrl.selectedVatPeriod" ng-options=" vatPeriod for vatPeriod in eventCtrl.vatPeriods"></select>
                 </div>
             </div>
             <div class="row">
                 <label for="companySize" class="col-sm-3">Omsättning</label>
                 <div class="col-sm-9">
-                    <select ng-disabled="!eventCtrl.vat" class="form-control" name="companySize" id="companySize" ng-model="eventCtrl.selectedCompanySizes" ng-options="companySize.label for companySize in eventCtrl.companySizes"></select>
+                    <select  ng-change="eventCtrl.choiseStore('selectedCompanySizes',eventCtrl.selectedCompanySizes)" ng-disabled="!eventCtrl.vat" class="form-control" name="companySize" id="companySize" ng-model="eventCtrl.selectedCompanySizes" ng-options="companySize.label for companySize in eventCtrl.companySizes"></select>
                 </div>
             </div>
             <div class="row">
                 <label for="tradeArea" class="col-sm-3">Handelsområde</label>
                 <div class="col-sm-9">
-                    <select ng-disabled="!eventCtrl.vat" class="form-control" name="tradeArea" id="tradeArea" ng-model="eventCtrl.selectedTradeArea" ng-options="tradeArea for tradeArea in eventCtrl.tradeAreas"></select>
+                    <select ng-change="eventCtrl.choiseStore('selectedTradeArea',eventCtrl.selectedTradeArea)" ng-disabled="!eventCtrl.vat" class="form-control" name="tradeArea" id="tradeArea" ng-model="eventCtrl.selectedTradeArea" ng-options="tradeArea for tradeArea in eventCtrl.tradeAreas"></select>
                 </div>
             </div>
             <!--
@@ -94,7 +94,7 @@
         <div class="col-sm-12">
             <div class="row">
                 <div class="col-sm-12">
-                    <table class="table table-striped" ng-repeat="month in eventCtrl.monthsWithEvents">
+                    <table class="table table-striped col-sm-12" ng-repeat="month in eventCtrl.monthsWithEvents">
                         <thead>
                             <tr>
                                 <th colspan="2">
@@ -104,10 +104,10 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="data in month.value">
-                                <td class="date-row">
+                                <td class="date-row" ng-class="eventCtrl.passedEvents(data.date)">
                                     {{data.date | date : 'd'}}
                                 </td>
-                                <td class="content-row">
+                                <td class="content-row" ng-class="eventCtrl.passedEvents(data.date)">
                                     {{data.renderedText}}
                                 </td>
                             </tr>
